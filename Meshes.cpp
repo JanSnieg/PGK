@@ -63,7 +63,7 @@ INT WINAPI wWinMain( HINSTANCE hInst, HINSTANCE, LPWSTR, INT )
                               NULL, NULL, wc.hInstance, NULL );
 
     // Initialize Direct3D
-	if (SUCCEEDED(gra->Initialize(hWnd)))
+	if (gra->Initialize(hWnd))
 	{
 		// Show the window
 		ShowWindow(hWnd, SW_SHOWDEFAULT);

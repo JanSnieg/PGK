@@ -112,10 +112,15 @@ HRESULT Game::InitGeometry()
 	return S_OK;
 }
 
-HRESULT Game::Initialize(HWND hWnd)
+bool Game::Initialize(HWND hWnd)
 {
-	InitD3D(hWnd);
-	return InitGeometry();
+	bool result = false;
+	if (SUCCEEDED(InitD3D(hWnd)))
+	{
+		if (SUCCEEDED(InitGeometry()))
+			result = true;
+	}
+	return result;
 }
 
 VOID Game::Cleanup()

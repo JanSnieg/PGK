@@ -21,7 +21,7 @@ public:
 	Game();
 	HRESULT InitD3D(HWND hWnd);
 	HRESULT InitGeometry();
-	HRESULT Initialize(HWND hWnd);
+	bool Initialize(HWND hWnd);
 	VOID Cleanup();
 	VOID Render();
 
