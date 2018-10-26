@@ -8,6 +8,10 @@
 class Pawn :
 	public Actor
 {
+	void OnStartUp();
+	void OnShutDown();
+	void Render();
+
 public:
 	Pawn();
 	~Pawn();

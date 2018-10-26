@@ -6,6 +6,10 @@
 class Actor :
 	public Object
 {
+	void OnStartUp();
+	void OnShutDown();
+	//void Update();
+	//void Render();
 public:
 	Actor();
 	~Actor();

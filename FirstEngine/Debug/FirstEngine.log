@@ -1,19 +1,4 @@
-﻿  Application.cpp
-  FrameRenderer.cpp
-  InputManager.cpp
-  LineRenderer.cpp
-  MeshManager.cpp
-  CameraManager.cpp
-  should not include d3dtypes.h when compiling for DX8 or newer interfaces
-  Game.cpp
-  Level.cpp
-  Main.cpp
-  Math.cpp
-  MeshRenderer.cpp
-  Renderer.cpp
-  TextRenderer.cpp
-  TextureManager.cpp
-  Timer.cpp
-  Window.cpp
-  Generowanie kodu...
+﻿  Object.cpp
+d:\games\pgk\firstengine\object.cpp(19): warning C4458: deklaracja „m_level” powoduje ukrycie składowej klasy
+  d:\games\pgk\firstengine\object.h(16): note: zobacz deklarację „Object::m_level”
   FirstEngine.vcxproj -> D:\Games\PGK\Debug\FirstEngine.exe

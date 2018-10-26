@@ -3,11 +3,13 @@
 class Character :
 	public Pawn
 {
+	void OnStarUp();
+	void OnShutDown();
 public:
 	Character();
 	~Character();
 
-	virtual void Update();
+	void Update();
 
 protected:
 

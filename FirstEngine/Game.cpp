@@ -1,14 +1,14 @@
 #include "Game.h"
-//#include "Level.h"
-//#include "CameraManager.h"
-//#include "FrameRenderer.h"
-//#include "InputManager.h"
-//#include "MeshManager.h"
-//#include "Renderer.h"
-//#include "TextureManager.h"
-//#include "RendererDevice.h"
-//#include <d3dx9math.h>
-//#include <cassert>
+#include "Level.h"
+#include "CameraManager.h"
+#include "FrameRenderer.h"
+#include "InputManager.h"
+#include "MeshManager.h"
+#include "Renderer.h"
+#include "TextureManager.h"
+#include "RendererDevice.h"
+#include <d3dx9math.h>
+#include <cassert>
 
 Game::Game()
 	: m_renderer( std::make_unique< Renderer >() )

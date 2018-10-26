@@ -20,6 +20,9 @@ public:
 	Level();
 	~Level();
 
+	template <typename T>
+	void CreateObject(T object);
+
 	void StartUp(Game* game);
 	void ShutDown();
 
@@ -45,3 +48,10 @@ private:
 	float m_cameraDistance;
 	// TEMP END
 };
+
+template<typename T>
+inline void Level::CreateObject(T object)
+{
+	object::object();
+	object.StartUp(object);
+}
