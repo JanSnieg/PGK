@@ -17,8 +17,16 @@ protected:
 	virtual void OnUpdate( float deltaTime ) override;
 
 private:
-	void UpdateRotation( float deltaTime );
+	void UpdateRotation();
+	void UpdateMovement();
 	float GetRotationInput() const;
+	D3DXVECTOR2 GetMovementInput() const;
+
+	const float W_forward = (-1.5f);
+	const float S_backward = 1.5f;
+	const float A_left = 3.0f;
+	const float D_right = 0.1f;
+	
 
 	Camera* m_camera;
 };

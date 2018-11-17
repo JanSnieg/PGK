@@ -21,8 +21,7 @@ void Tiger::OnStartUp()
 {
 	Pawn::OnStartUp();
 
-	m_camera = GetLevel()->CreateObject< Camera >( [this]( auto camera )
-	{
+	m_camera = GetLevel()->CreateObject< Camera >( [this]( auto camera ) {
 		camera->SetTarget( this );
 	} );
 }
@@ -38,35 +37,88 @@ void Tiger::OnShutDown()
 
 void Tiger::OnUpdate( float deltaTime )
 {
-	UpdateRotation( deltaTime );
+	UpdateMovement();
+	Sleep( 100 );
+	UpdateRotation();
 
 	Pawn::OnUpdate( deltaTime );
 }
 
-void Tiger::UpdateRotation( float deltaTime )
+void Tiger::UpdateRotation()
 {
 	float rotationInput = GetRotationInput();
+	if( rotationInput )
+	{
+		D3DXVECTOR3 rotation = GetActorRotation();
+		rotation.y = rotationInput;
+		SetActorRotation( rotation );
+	}
+	else
+		return;
+	
+}
 
-	static const float rotationChangeSpeed = Math::Deg2Rad( 90.0f );
-
-	D3DXVECTOR3 rotation = GetActorRotation();
-	rotation.y += rotationInput * rotationChangeSpeed * deltaTime;
-	SetActorRotation( rotation );
+void Tiger::UpdateMovement()
+{
+	D3DXVECTOR2 movementInput = GetMovementInput();
+	if( movementInput )
+	{
+		D3DXVECTOR3 movement = GetActorPosition();
+		movement.x += movementInput.x;
+		movement.z += movementInput.y;
+		SetActorPosition( movement );
+	}
+	else
+		return;
 }
 
 float Tiger::GetRotationInput() const
 {
 	const InputManager* inputs = GetLevel()->GetGame()->GetInputManager();
 
-	float rotationInput = 0.0f;
+	float rotation = 0.0f;
+
 	if( inputs->IsKeyPressed( 'A' ) )
 	{
-		rotationInput -= 1.0f;
+		rotation = A_left;
 	}
-	if( inputs->IsKeyPressed( 'D' ) )
+	else if( inputs->IsKeyPressed( 'D' ) )
 	{
-		rotationInput += 1.0f;
+		rotation = D_right;
 	}
+	else if( inputs->IsKeyPressed( 'W' ) )
+	{
+		rotation = W_forward;
+	}
+	else if( inputs->IsKeyPressed( 'S' ) )
+	{
+		rotation = S_backward;
+	}
+	return rotation;
+}
 
-	return rotationInput;
+D3DXVECTOR2 Tiger::GetMovementInput() const
+{
+	const InputManager* inputs = GetLevel()->GetGame()->GetInputManager();
+	float step = 0.2f;
+	D3DXVECTOR2 movement = D3DXVECTOR2(0.0f, 0.0f);
+	float rotation = GetActorRotation().y;
+
+	if( inputs->IsKeyPressed( 'A' ) && rotation == A_left)
+	{
+		movement.y = step;
+	}
+	else if( inputs->IsKeyPressed( 'D' ) && rotation == D_right )
+	{
+		movement.y = -step;
+	}
+	else if( inputs->IsKeyPressed( 'W' ) && rotation == W_forward )
+	{
+		movement.x = step;
+	}
+	else if( inputs->IsKeyPressed( 'S' ) && rotation == S_backward )
+	{
+		movement.x = -step;
+	}
+	return movement;
 }

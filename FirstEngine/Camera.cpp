@@ -36,6 +36,7 @@ void Camera::OnUpdate( float deltaTime )
 void Camera::UpdateCamera( float deltaTime )
 {
 	float distanceInput = GetCameraInput();
+	D3DXVECTOR2 moveInput = GetCameraMove();
 
 	static const float distanceChangeSpeed = 5.0f;
 	static const float distanceMin = 1.0f;
@@ -49,6 +50,8 @@ void Camera::UpdateCamera( float deltaTime )
 	D3DXVECTOR3 direction = cameraManger->GetDirection();
 	D3DXVECTOR3 position = GetTargetPosition() - direction * m_distance;
 	position.y += 0.75f;
+	//position.x += moveInput.x;
+	//position.z += moveInput.y;
 	cameraManger->SetPositionDirection( position, direction );
 }
 
@@ -65,6 +68,18 @@ float Camera::GetCameraInput() const
 	{
 		camerInput += 1.0f;
 	}
-
+	camerInput += inputs->GetMouseWheel();
 	return camerInput;
+}
+
+D3DXVECTOR2 Camera::GetCameraMove()
+{
+	const InputManager* inputs = GetLevel()->GetGame()->GetInputManager();
+	D3DXVECTOR2 mouseMove = D3DXVECTOR2(0.0f,0.0f);
+	if((GetKeyState(VK_RBUTTON) & 0x100) != 0 )
+	{
+		mouseMove.x = inputs->GetMouseMoveX();
+		mouseMove.y = inputs->GetMouseMoveY();
+	}
+	return D3DXVECTOR2();
 }

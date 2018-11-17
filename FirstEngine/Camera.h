@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Object.h"
+#include <d3dx9math.h>
+//#include <iostream>
 
 class Actor;
 struct D3DXVECTOR3;
@@ -23,6 +25,7 @@ protected:
 private:
 	void UpdateCamera( float deltaTime );
 	float GetCameraInput() const;
+	D3DXVECTOR2 GetCameraMove();
 
 	const Actor* m_target;
 	float m_distance;
