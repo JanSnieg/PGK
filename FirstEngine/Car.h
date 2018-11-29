@@ -4,11 +4,11 @@
 
 class GenericCamera;
 
-class Tiger : public Character
+class Car : public Character
 {
 public:
-	Tiger();
-	~Tiger();
+	Car();
+	~Car();
 
 protected:
 	virtual void OnStartUp() override;
@@ -20,26 +20,23 @@ private:
 	struct Input
 	{
 		float moveForward;
-		float moveRight;
-		float rotation;
-		bool jump;
+		float turnRight;
 	};
 
-	void UpdateTiger( float deltaTime );
+	void UpdateCar( float deltaTime );
 	Input GetInput() const;
-	void UpdateMovement( float moveForwardInput, float moveRightInput, bool jumpInput, float deltaTime );
+	void UpdateMovement( float moveForwardInput, float deltaTime );
 	void UpdateRotation( float rotationInput, float deltaTime );
 
 	GenericCamera* m_camera;
 
 	float m_moveAcceleration;
 	float m_moveDeceleration;
+	float m_moveSideDeceleration;
+	float m_moveInAirDeceleration;
 	float m_moveSpeedMax;
-	float m_moveAirControl;
 
-	float m_jumpSpeed;
-	float m_jumpGravity;
+	float m_gravity;
 
 	float m_rotationChangeSpeed;
-	float m_rotationAirControl;
 };

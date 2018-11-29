@@ -103,7 +103,7 @@ void Renderer::EndRender()
 void Renderer::Present()
 {
 	// Present the backbuffer contents to the display
-	m_direct3dDevice->Present(nullptr, nullptr, nullptr, nullptr);
+	m_direct3dDevice->Present( nullptr, nullptr, nullptr, nullptr );
 }
 
 bool Renderer::CreateDevice( const RendererInitContext& rendererContext )
@@ -116,10 +116,11 @@ bool Renderer::CreateDevice( const RendererInitContext& rendererContext )
 	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
 	// Create the D3DDevice
 	if( FAILED( m_direct3d->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, rendererContext.hWnd,
-										  D3DCREATE_SOFTWARE_VERTEXPROCESSING /*D3DCREATE_HARDWARE_VERTEXPROCESSING*/,
+										  D3DCREATE_HARDWARE_VERTEXPROCESSING,
 										  &d3dpp, &m_direct3dDevice ) ) )
 	{
 		return false;
@@ -133,11 +134,24 @@ void Renderer::SetupDevice()
 	// Turn on the zbuffer
 	m_direct3dDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
 
-	// Turn off lighting
-	//m_direct3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	// Turn on lighting
+	m_direct3dDevice->SetRenderState( D3DRS_LIGHTING, TRUE );
+
+	// ... and set the default light.
+	D3DLIGHT9 light = {};
+
+	light.Type = D3DLIGHT_DIRECTIONAL;
+	light.Diffuse = D3DXCOLOR( 0xFF222222 );
+
+	D3DXVECTOR3 lightDir = D3DXVECTOR3( -1.0f, -0.3f, -1.0f );
+	D3DXVec3Normalize( &lightDir, &lightDir );
+	light.Direction = lightDir;
+
+	m_direct3dDevice->SetLight( 0, &light );
+	m_direct3dDevice->LightEnable( 0, TRUE );
 
 	// Turn on ambient lighting
-	m_direct3dDevice->SetRenderState( D3DRS_AMBIENT, 0xffffffff );
+	m_direct3dDevice->SetRenderState( D3DRS_AMBIENT, 0xFFCCCCCC );
 }
 
 void Renderer::CreateRenderers()
