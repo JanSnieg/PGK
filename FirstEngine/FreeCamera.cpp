@@ -42,6 +42,10 @@ void FreeCamera::UpdateCamera( float deltaTime )
 	{
 		FireProjectile();
 	}
+	else if (input.fireGranade)
+	{
+		FireGranade();
+	}
 
 	SetCamera();
 }
@@ -111,6 +115,10 @@ FreeCamera::Input FreeCamera::GetInput( float deltaTime ) const
 	{
 		input.fireProjectile = true;
 	}
+	if (inputMgr->IsKeyJustPressed(MK_RBUTTON))
+	{
+		input.fireGranade = true;
+	}
 
 
 	return input;
@@ -147,6 +155,19 @@ void FreeCamera::FireProjectile()
 		projectile->SetLifeTime( 5.0f );
 		projectile->SetActorPosition( m_position );
 		projectile->SetVelocity( GetCameraDirection() * 25.0f );
+	} );
+}
+
+void FreeCamera::FireGranade()
+{
+	GetLevel()->CreateObject< Projectile >([this](auto granade)
+	{
+		granade->SetRadius( 1.0f );
+		granade->SetGravityFactor( 2.0f );
+		granade->SetLifeTime( 5.0f );
+		granade->SetActorPosition( m_position );
+		granade->SetVelocity( GetCameraDirection() * 25.0f );
+		granade->SetColor(0x2D0238);
 	} );
 }
 

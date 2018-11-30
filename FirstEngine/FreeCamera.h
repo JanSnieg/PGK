@@ -22,6 +22,7 @@ private:
 		float moveUp;
 
 		bool fireProjectile;
+		bool fireGranade;
 	};
 
 	void UpdateCamera( float deltaTime );
@@ -31,6 +32,7 @@ private:
 	void UpdateMovement( float moveForwardInput, float moveRightInput, float moveUpInput, float deltaTime );
 
 	void FireProjectile();
+	void FireGranade();
 
 	void SetCamera();
 	D3DXVECTOR3 GetCameraDirection() const;

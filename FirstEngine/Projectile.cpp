@@ -118,6 +118,7 @@ bool Projectile::GetNearestCollision( CollisionResult& result ) const
 
 	// Collision with ground.
 	ShapePlane ground;
+	//SetVelocity( GetVelocity() * 0.8 );
 	ground.m_point = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
 	ground.m_normal = Math::s_upVector3;
 
